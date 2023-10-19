@@ -1,6 +1,6 @@
 module Notation
   LETTERS = ('a'..'h').to_a.freeze
-  NUMBERS = ('1'..'8').to_a.reverse.freeze
+  NUMBERS = ('8'..'1').to_a.reverse.freeze
   CLASSES = {
     WhitePawn => '',
     WhiteRook => 'R',
@@ -16,8 +16,11 @@ module Notation
     BlackKing=> 'K'
   }.freeze
 
+  # Takes an item of the piece class along with board index from Gameboard, provides notation by using piece.class and
+  # converting the board coordinates in to chess notation by retrieving the coloumn letters and minusing by 8 for
+  # row index
   def get_notation(piece, index)
-    return CLASSES[piece.class].to_s + LETTERS[index[0]].to_s + index[1].to_s if piece.class != 'BlackPawn' || 'WhitePawn'
+    return CLASSES[piece.class].to_s + LETTERS[index[1]].to_s + (8 - index[0]).to_s if piece.class != 'BlackPawn' || 'WhitePawn'
 
     LETTERS[index[0]] + index[1].to_s
   end

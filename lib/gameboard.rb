@@ -35,24 +35,25 @@ class Gameboard
   end
 
   def white_pieces(board)
-    board[1].map.with_index {|x, i| x.piece = WhitePawn.new }
+    board[6].map.with_index {|x, i| x.piece = WhitePawn.new }
     gamerow = [WhiteRook, WhiteKnight, WhiteBishop, WhiteQueen, WhiteKing, WhiteBishop, WhiteKnight, WhiteRook]
     gamerow.each.with_index do |piece, i|
-      board[0][i].piece = piece.new
+      board[7][i].piece = piece.new
     end
   end
 
   def black_pieces(board)
-    board[6].map.with_index {|x, i| x.piece = BlackPawn.new }
+    board[1].map.with_index {|x, i| x.piece = BlackPawn.new }
     gamerow = [BlackRook, BlackKnight, BlackBishop, BlackQueen, BlackKing, BlackBishop, BlackKnight, BlackRook]
     gamerow.each.with_index do |piece, i|
-      board[7][i].piece = piece.new
+      board[0][i].piece = piece.new
     end
   end
 
   def move_piece(piece, x) 
     @gameboard[x[0]][x[1]].piece = @gameboard[piece[0]][piece[1]].piece
     @gameboard[piece[0]][piece[1]].piece = nil
+    display(@gameboard)
   end
 
   def print_gameboard
@@ -70,7 +71,7 @@ class Gameboard
       x.piece.moves.each do |move|
         j, k = position[0] + move[0], position[1] + move[1]
         if Gameboard.valid?([j, k]) && @gameboard[j][k].piece.nil?
-          moves_hash[get_notation(x.piece, [j, k])] << [x.index, [j, k]]
+          moves_hash[get_notation(x.piece, [j, k])] += [x.index, [j, k]]
         end
       end
     end

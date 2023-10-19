@@ -4,7 +4,8 @@ require_relative '../piece'
 class Pawn < Piece
   attr_reader :colour
 
-  MOVES = [[1,0], [2,0]].freeze # dimensions for allowable moves
+  BLACK_MOVES = [[1,0], [2,0]].freeze # dimensions for allowable moves
+  WHITE_MOVES = [[-1, 0], [-2, 0]].freeze
 
   def initialize(colour)
     super
@@ -12,9 +13,14 @@ class Pawn < Piece
   end
 
   def moves
-    return MOVES[0] if @has_moved == true
+    if @colour == 'white'
+      return WHITE_MOVES[0] if @has_moved == true
+      WHITE_MOVES
+    else
+      return BLACK_MOVES[0] if @has_moved == true
 
-    MOVES
+      BLACK_MOVES
+    end
   end
 end
 

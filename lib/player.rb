@@ -19,12 +19,19 @@ class Player
   end
 
   # requires pieces array from return_pieces allocated by colour
-  def players_moves_for_turn
+  def initialize_moves_for_turn
     return_pieces
     @available_moves = @gameboard.allocate_moves(@pieces_onboard)
   end
+
+  # Player input already approved as it matched availble moves and is found with a key
+  def move_players_piece(player_input)
+    x, y = @available_moves[player_input]
+    @gameboard.move_piece(x, y)
+  end
 end
 
-h = Player.new(Gameboard.new, 'white')
-h.players_moves_for_turn
+h = Player.new(Gameboard.new, 'black')
+h.initialize_moves_for_turn
 puts h.available_moves
+h.move_players_piece("Na6")
