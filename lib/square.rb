@@ -1,9 +1,17 @@
 # Sqaure class represents the squares on the chess board
-class Square
-  attr_accessor :piece, :available_moves
+require_relative 'pieces/pawn'
 
-  def initialize(piece = nil)
+class Square
+  attr_accessor :piece, :available_moves, :index
+  
+  def initialize(index, piece = nil)
+    @index = index
     @piece = piece
-    @available_moves = nil
+  end
+
+  def available_moves_creation
+    return nil if piece.nil?
+
+    piece.MOVES
   end
 end

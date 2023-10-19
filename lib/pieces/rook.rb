@@ -2,10 +2,11 @@ require_relative '../piece'
 
 # Rook class for pieces
 class Rook < Piece
-
+  attr_reader :colour
+  
   MOVES = [[1,0], [-1,0], [0,1], [0,-1]].freeze # dimensions for allowable moves
 
-  def initialize(position, board, colour)
+  def initialize(colour)
     super
     @has_moved = false
   end
@@ -16,13 +17,13 @@ class Rook < Piece
 end
 
 class WhiteRook < Rook
-  def initialize(position, board)
-    super(position, board, 'white')
+  def initialize
+    super('white')
   end
 end
 
 class BlackRook < Rook
-  def initialize(position, board)
-    super(position, board, 'black')
+  def initialize
+    super('black')
   end
 end

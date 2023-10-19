@@ -2,11 +2,14 @@ require_relative '../piece'
 
 # Knight class for pieces
 class Knight < Piece
+  attr_accessor :moves
+  attr_reader :colour
+  
   # dimensions for allowable moves
   MOVES = [[1, 2], [-2, -1], [-1, 2], [2, -1],
            [1, -2], [-2, 1], [-1, -2], [2, 1]].freeze
 
-  def initialize(position, board, colour)
+  def initialize(colour)
     super
     @has_moved = false
   end
@@ -17,13 +20,13 @@ class Knight < Piece
 end
 
 class WhiteKnight < Knight
-  def initialize(position, board)
-    super(position, board, 'white')
+  def initialize
+    super('white')
   end
 end
 
 class BlackKnight < Knight
-  def initialize(position, board)
-    super(position, board, 'black')
+  def initialize
+    super('black')
   end
 end

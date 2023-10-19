@@ -2,28 +2,30 @@ require_relative '../piece'
 
 # Pawn class for pieces
 class Pawn < Piece
-  attr_accessor :icon
-  MOVES = [[1,0], [1,1]].freeze # dimensions for allowable moves
+  attr_reader :colour
 
-  def initialize(position, board, colour)
+  MOVES = [[1,0], [2,0]].freeze # dimensions for allowable moves
+
+  def initialize(colour)
     super
     @has_moved = false
   end
 
   def moves
+    return MOVES[0] if @has_moved == true
+
     MOVES
   end
 end
 
 class WhitePawn < Pawn
-  def initialize(position, board)
-    super(position, board, 'white')
-    @icon = 'F'
+  def initialize
+    super('white')
   end
 end
 
 class BlackPawn < Pawn
-  def initialize(position, board)
-    super(position, board, 'black')
+  def initialize
+    super('black')
   end
 end

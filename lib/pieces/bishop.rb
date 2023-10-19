@@ -2,12 +2,14 @@ require_relative '../piece'
 
 # Master class for pieces
 class Bishop < Piece
+  attr_accessor :moves
+  attr_reader :colour
 
   MOVES = [[-1,-1], [1,1], [-1,1], [1,-1]] # dimensions for allowable moves
 
-  def initialize(position, board, colour)
+  def initialize(colour)
     super
-    # assess if needed
+    @has_moved = false
   end
 
   def moves
@@ -16,13 +18,13 @@ class Bishop < Piece
 end
 
 class WhiteBishop < Bishop
-  def initialize(position, board)
-    super(position, board, 'white')
+  def initialize
+    super('white')
   end
 end
 
 class BlackBishop < Bishop
-  def initialize(position, board)
-    super(position, board, 'black')
+  def initialize
+    super('black')
   end
 end
