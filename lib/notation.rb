@@ -20,8 +20,11 @@ module Notation
   # converting the board coordinates in to chess notation by retrieving the coloumn letters and minusing by 8 for
   # row index
   def get_notation(piece, index)
-    return CLASSES[piece.class].to_s + LETTERS[index[1]].to_s + (8 - index[0]).to_s if piece.class != 'BlackPawn' || 'WhitePawn'
-
-    LETTERS[index[0]] + index[1].to_s
+    if piece.class != BlackPawn && piece.class != WhitePawn
+      return CLASSES[piece.class].to_s + LETTERS[index[1]].to_s + (8 - index[0]).to_s
+    else
+      return LETTERS[index[1]] + (8 - index[0]).to_s
+    end
   end
+
 end

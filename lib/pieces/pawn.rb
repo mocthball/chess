@@ -1,6 +1,6 @@
 require_relative '../piece'
 
-# Pawn class for pieces
+# Pawn class for pieces move coordinates differ as white piece mmove opposite to black
 class Pawn < Piece
   attr_reader :colour
 

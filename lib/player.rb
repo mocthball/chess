@@ -1,37 +1,37 @@
 require_relative 'gameboard'
+require_relative 'util/input'
 
-#Holds player data, availble_moves
+# Holds player data, availble_moves
 class Player
+  include Input
 
   attr_accessor :available_moves
+  attr_reader :pieces_onboard
 
   def initialize(gameboard, colour)
     @available_moves = nil
     @gameboard = gameboard
     @colour = colour
-    @pieces_onboard = return_pieces
+    @pieces_onboard = moves_for_current_turn
   end
 
-  def return_pieces
+  def moves_for_current_turn
     @pieces_onboard = @gameboard.gameboard.flatten.map do |square|
       square if square.piece&.colour == @colour
     end.compact
   end
 
-  # requires pieces array from return_pieces allocated by colour
+  # requires pieces array from moves_for_current_turn allocated by colour
   def initialize_moves_for_turn
-    return_pieces
+    moves_for_current_turn
     @available_moves = @gameboard.allocate_moves(@pieces_onboard)
   end
 
-  # Player input already approved as it matched availble moves and is found with a key
-  def move_players_piece(player_input)
+  # Schematics for players turn from Game
+  def move_players_piece
+    initialize_moves_for_turn
+    player_input = get_move(@available_moves)
     x, y = @available_moves[player_input]
     @gameboard.move_piece(x, y)
   end
 end
-
-h = Player.new(Gameboard.new, 'black')
-h.initialize_moves_for_turn
-puts h.available_moves
-h.move_players_piece("Na6")

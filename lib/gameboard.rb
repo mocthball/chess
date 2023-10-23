@@ -67,14 +67,26 @@ class Gameboard
   def allocate_moves(pieces)
     moves_hash = Hash.new { |hash, key| hash[key] = [] }
     pieces.each do |x|
-      position = x.index
-      x.piece.moves.each do |move|
-        j, k = position[0] + move[0], position[1] + move[1]
-        if Gameboard.valid?([j, k]) && @gameboard[j][k].piece.nil?
-          moves_hash[get_notation(x.piece, [j, k])] += [x.index, [j, k]]
-        end
-      end
+      moves_creation_by_piece(x, moves_hash)
     end
     moves_hash
   end
+
+  def moves_creation_by_piece(x, moves_hash)
+    x.piece.moves.each do |move|
+      j, k = x.index[0] + move[0], x.index[1] + move[1]
+      if x.piece.is_a?(Queen) || x.piece.is_a?(Bishop)
+        while Gameboard.valid?([j, k]) && @gameboard[j][k].piece.nil?
+          if !@gameboard[j][k].piece.nil? && @gameboard[j][k].piece.colour == x.piece.colour
+            return moves_hash
+          end
+          moves_hash[get_notation(x.piece, [j, k])] += [x.index, [j, k]]
+          j, k = j + move[0], k + move[1]
+        end
+      elsif Gameboard.valid?([j, k]) && @gameboard[j][k].piece.nil?
+        moves_hash[get_notation(x.piece, [j, k])] += [x.index, [j, k]]
+      end
+    end
+  end
+
 end
