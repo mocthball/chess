@@ -50,9 +50,10 @@ class Gameboard
     end
   end
 
-  def move_piece(piece, x) 
+  def move_piece(piece, x)
     @gameboard[x[0]][x[1]].piece = @gameboard[piece[0]][piece[1]].piece
     @gameboard[piece[0]][piece[1]].piece = nil
+    @gameboard[x[0]][x[1]].piece.has_moved = true
     display(@gameboard)
   end
 
@@ -63,29 +64,40 @@ class Gameboard
   def self.valid?(movement)
     movement[0].between?(0, 7) && movement[1].between?(0, 7)
   end
-  
+  # I hate these functions, messyyyy!
   def allocate_moves(pieces)
     moves_hash = Hash.new { |hash, key| hash[key] = [] }
     pieces.each do |x|
-      moves_creation_by_piece(x, moves_hash)
+      allocate_moves_by_piece(x, moves_hash)
     end
     moves_hash
   end
 
-  def moves_creation_by_piece(x, moves_hash)
+  def allocate_moves_by_piece(x, moves_hash)
     x.piece.moves.each do |move|
       j, k = x.index[0] + move[0], x.index[1] + move[1]
-      if x.piece.is_a?(Queen) || x.piece.is_a?(Bishop)
-        while Gameboard.valid?([j, k]) && @gameboard[j][k].piece.nil?
-          if !@gameboard[j][k].piece.nil? && @gameboard[j][k].piece.colour == x.piece.colour
-            return moves_hash
-          end
-          moves_hash[get_notation(x.piece, [j, k])] += [x.index, [j, k]]
-          j, k = j + move[0], k + move[1]
-        end
+      if x.piece.is_a?(Queen) || x.piece.is_a?(Bishop) || x.piece.is_a?(Rook)
+        multi_moving_pieces(j, k, x, moves_hash)
       elsif Gameboard.valid?([j, k]) && @gameboard[j][k].piece.nil?
-        moves_hash[get_notation(x.piece, [j, k])] += [x.index, [j, k]]
+        if !@gameboard[j][k].piece.nil? && @gameboard[j][k].piece.colour == x.piece.colour
+          break
+        else
+          moves_hash[get_notation(x.piece, [j, k])] += [x.index, [j, k]]
+        end
       end
+    end
+  end
+
+  def multi_moving_pieces(j, k, x, moves_hash)
+    while Gameboard.valid?([j, k])
+      if !@gameboard[j][k].piece.nil? && @gameboard[j][k].piece.colour == x.piece.colour
+        break
+      elsif !@gameboard[j][k].piece.nil? && @gameboard[j][k].piece.colour != x.piece.colour
+        moves_hash[get_notation(x.piece, [j, k])] += [x.index, [j, k]]
+        break
+      end
+      moves_hash[get_notation(x.piece, [j, k])] += [x.index, [j, k]]
+      j, k = j + move[0], k + move[1]
     end
   end
 

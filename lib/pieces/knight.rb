@@ -2,7 +2,7 @@ require_relative '../piece'
 
 # Knight class for pieces
 class Knight < Piece
-  attr_accessor :moves
+  attr_accessor :has_moved
   attr_reader :colour
   
   # dimensions for allowable moves

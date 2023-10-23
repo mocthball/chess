@@ -2,7 +2,7 @@ require_relative '../piece'
 
 # King class for pieces
 class King < Piece
-  attr_accessor :moves
+  attr_accessor :has_moved
   attr_reader :colour
   
   # dimensions for allowable moves

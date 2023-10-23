@@ -3,6 +3,8 @@ require_relative '../piece'
 # Pawn class for pieces move coordinates differ as white piece mmove opposite to black
 class Pawn < Piece
   attr_reader :colour
+  attr_accessor :has_moved
+
 
   BLACK_MOVES = [[1,0], [2,0]].freeze # dimensions for allowable moves
   WHITE_MOVES = [[-1, 0], [-2, 0]].freeze

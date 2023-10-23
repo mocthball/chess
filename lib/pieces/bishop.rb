@@ -2,7 +2,7 @@ require_relative '../piece'
 
 # Master class for pieces
 class Bishop < Piece
-  attr_accessor :moves
+  attr_accessor :has_moved
   attr_reader :colour
 
   MOVES = [[-1,-1], [1,1], [-1,1], [1,-1]] # dimensions for allowable moves
