@@ -77,7 +77,9 @@ class Gameboard
     x.piece.moves.each do |move|
       j, k = x.index[0] + move[0], x.index[1] + move[1]
       if x.piece.is_a?(Queen) || x.piece.is_a?(Bishop) || x.piece.is_a?(Rook)
-        multi_moving_pieces(j, k, x, moves_hash)
+        multi_moving_pieces(j, k, x, move, moves_hash)
+
+        #needs reassessment
       elsif Gameboard.valid?([j, k]) && @gameboard[j][k].piece.nil?
         if !@gameboard[j][k].piece.nil? && @gameboard[j][k].piece.colour == x.piece.colour
           break
@@ -88,7 +90,7 @@ class Gameboard
     end
   end
 
-  def multi_moving_pieces(j, k, x, moves_hash)
+  def multi_moving_pieces(j, k, x, move, moves_hash)
     while Gameboard.valid?([j, k])
       if !@gameboard[j][k].piece.nil? && @gameboard[j][k].piece.colour == x.piece.colour
         break

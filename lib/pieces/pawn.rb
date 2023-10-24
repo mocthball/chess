@@ -17,6 +17,7 @@ class Pawn < Piece
   def moves
     if @colour == 'white'
       return WHITE_MOVES[0] if @has_moved == true
+
       WHITE_MOVES
     else
       return BLACK_MOVES[0] if @has_moved == true
