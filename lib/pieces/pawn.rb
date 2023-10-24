@@ -25,6 +25,14 @@ class Pawn < Piece
       BLACK_MOVES
     end
   end
+
+  def capturing_pieces
+    if @colour == 'white'
+      [[-1, 1], [-1, -1]]
+    else
+      [[1, 1], [1, -1]]
+    end
+  end
 end
 
 class WhitePawn < Pawn

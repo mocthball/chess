@@ -23,6 +23,7 @@ class Player
 
   # requires pieces array from moves_for_current_turn allocated by colour
   def initialize_moves_for_turn
+    @pieces_onboard = nil
     moves_for_current_turn
     @available_moves = @gameboard.allocate_moves(@pieces_onboard)
   end

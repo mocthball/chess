@@ -10,7 +10,7 @@ class Game
     @players_turn = @player1
     game_play
   end
-  
+
   def game_play
     next_turn until game_over
   end
@@ -22,8 +22,10 @@ class Game
 
   def game_over
     if @player1.pieces_onboard.include?(WhiteKing)
+      puts 'Black Wins'
       true
     elsif @player2.pieces_onboard.include?(BlackKing)
+      puts 'White Wins'
       true
     else
       false
@@ -31,4 +33,4 @@ class Game
   end
 end
 
-letsgo = Game.new
+Game.new
