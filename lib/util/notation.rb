@@ -15,6 +15,14 @@ module Notation
     BlackQueen=> 'Q',
     BlackKing=> 'K'
   }.freeze
+  PIECES = {
+    King => 'K',
+    Rook => 'R',
+    Knight => 'N',
+    Bishop => 'B',
+    Queen => 'Q',
+    Pawn => ''
+  }.freeze
 
   # Takes an item of the piece class along with board index from Gameboard, provides notation by using piece.class and
   # converting the board coordinates in to chess notation by retrieving the coloumn letters and minusing by 8 for
@@ -27,4 +35,11 @@ module Notation
     end
   end
 
+  def notation_to_piece(str)
+    if str.length == 3
+      PIECES.key(str[0])
+    else
+      'Pawn'
+    end
+  end
 end

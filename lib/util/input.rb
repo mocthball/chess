@@ -1,10 +1,10 @@
 # Module for all dialogue throught the game
 module Input
   def get_move(moves_list)
-    print "Insert move: "
+    print 'Insert move: '
     guess = convert_string
     until moves_list.key?(guess) || moves_list.key?(guess.downcase)
-      guess == "Help" ? (p moves_list) : (puts 'incorrect move, try again insert help for moves list')
+      guess == 'Help' ? (p moves_list) : (puts 'incorrect move, try again insert help for moves list')
       print 'Insert move: '
       guess = convert_string
     end
@@ -21,4 +21,7 @@ module Input
     end
   end
 
+  def check
+    print 'check'
+  end
 end

@@ -1,5 +1,8 @@
 require_relative 'gameboard'
 require_relative 'util/input'
+require_relative 'util/movement'
+
+
 
 # Holds player data, availble_moves
 class Player
